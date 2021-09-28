@@ -44,6 +44,6 @@
 /file print file=$filename2 where name="";
 }
 
-:log info "Adding result to the end of the lof file......";
+:log info "Adding result to files......";
 /file set $filename2 contents=([get $filename2 contents]  ."\n".$ds."-->" . $avrRX);
 /file set $filename2 contents=([get $filename2 contents] ."    ". $avrTX);
