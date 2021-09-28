@@ -1,7 +1,8 @@
 :log info "------------ Speedtest Starts--------------";
 
 :local Addr  "xxx.xxx.xxx.xxx";
-
+:local luser "";
+:local lpass "";
 :local avrRX 0;
 :local avrTX 0;
 
@@ -9,7 +10,7 @@
 # DOWNLOAD TEST
 :log info "----> Measuring download (30 seconds)........";
 :do {/tool
-   bandwidth-test duration=30s protocol=tcp address=$Addr direction=receive do={
+   bandwidth-test duration=30s protocol=tcp user=$luser password=$lpass address=$Addr direction=receive do={
      :set $avrRX ("rx-total-average: " . ($"rx-total-average" / 1048576) . "." . ($"rx-total-average" % (1048576) / 1024) . " Mbps" );
    }
 } on-error={:log error message="RX script failed"}
@@ -19,7 +20,7 @@
 # UPLOAD TEST
 :log info "----> Measuring upload (30 seconds) ........";
 :do {/tool
-  bandwidth-test duration=30s protocol=tcp address=$Addr direction=transmit do={
+  bandwidth-test duration=30s protocol=tcp user=$luser password=$lpass address=$Addr direction=transmit do={
      :set $avrTX ("tx-total-average: " . ($"tx-total-average" / 1048576) . "." . ($"tx-total-average" % (1048576) / 1024) . " Mbps" );
   }
 } on-error={:log error message="TX script failed"}
